@@ -1,6 +1,8 @@
 import Global from "./styles/global"
 import styled from 'styled-components'
-import Form from "./components/Form.jsx"
+import Form from "./components/Form"
+import Grid from "./components/Grid"
+
 import {toast, ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
@@ -27,6 +29,8 @@ function App() {
       <Container>
       <Title>Usuários</Title>
       <Form />
+
+      <Grid />
 
       </Container>
 
