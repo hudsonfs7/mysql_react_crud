@@ -1,8 +1,7 @@
-const express = require('express')
+import express from 'express'
+import { getUsers } from '../constrollers/user.js'
 
-const app = express()
-
-const router = app.Router()
+const router = express.Router()
 
 router.get('/', getUsers)
 
