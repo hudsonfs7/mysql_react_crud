@@ -21,7 +21,7 @@ export const Thead = styled.thead`
 
 `
 
-export const Tbody = styled.tboby`
+export const Tbody = styled.tbody`
 `
 
 export const Tr = styled.tr`
@@ -63,9 +63,9 @@ const Grid = ({ users }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {users.map((item, i) => (
+      {users.map((item, i) => (
           <Tr key={i}>
-            <Td width="30%">{item.nome}</Td>
+            <Td width="30%">{item.name}</Td>
             <Td width="30%">{item.email}</Td>
             <Td width="30%" onlyWeb>{item.phone}</Td>
             <Td alignCenter width="5%">
