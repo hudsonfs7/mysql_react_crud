@@ -1,6 +1,6 @@
+import axios from 'axios'
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const FormContainer = styled.form`
@@ -27,6 +27,8 @@ const Input = styled.input`
   height: 40px;
 `
 
+const Label = styled.label``
+
 const Button = styled.button`
   padding: 10px;
   cursor: pointer;
@@ -36,8 +38,6 @@ const Button = styled.button`
   color: white;
   height: 42px;
 `
-
-const Label = styled.label``
 
 const Form = ({ getUsers, onEdit, setOnEdit }) => {
   const ref = useRef()
@@ -57,6 +57,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     e.preventDefault()
 
     const user = ref.current
+
     if (
       !user.name.value || 
       !user.email.value || 
@@ -67,19 +68,22 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     }
 
     if (onEdit) {
-      await axios.put('http://localhost:8800/' + onEdit.id, {
+      await axios
+      .put('http://localhost:8800/' + onEdit.id, {
         name: user.name.value,  
         email: user.email.value,  
         phone: user.phone.value,  
-        date: user.bdate.value,      
+        bdate: user.bdate.value,      
       }).then(({ data }) => toast.success(data)).catch(({ data }) => toast.error(data))
     } else {
       await axios.post('http://localhost:8800/', {
         name: user.name.value,  
         email: user.email.value,  
         phone: user.phone.value,  
-        date: user.bdate.value, 
-      }).then(({ data }) => toast.success(data)).catch(({ data }) => toast.error(data))
+        bdate: user.bdate.value, 
+      })
+      .then(({ data }) => toast.success(data))
+      .catch(({ data }) => toast.error(data))
     }
 
     user.name.value = ""  
@@ -90,6 +94,11 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     setOnEdit(null)
     getUsers()
   }
+
+
+
+
+
 
   return (
     <FormContainer ref={ref} onSubmit={handleSubmit}>
