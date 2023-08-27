@@ -46,9 +46,9 @@ useEffect(() => {
     <>
       <Container>
       <Title>Usuários</Title>
-      <Form />
+      <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers} />
 
-      <Grid users={users} />
+      <Grid users={users} setUsers={setUsers} setOnEdit={setOnEdit} />
 
       </Container>
 

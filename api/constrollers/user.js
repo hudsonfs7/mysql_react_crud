@@ -15,9 +15,9 @@ export const getUsers = (_, res) => {
 export const addUser = (req, res) => {
   const q = 'INSERT INTO users(`name`, `email`, `phone`, `bdate`) VALUES(?)'
 
-  const VALUES = [req.body.name, req.body.email, req.body.phone, req.body.bdate]
+  const values = [req.body.name, req.body.email, req.body.phone, req.body.bdate]
 
-  db.query(q, [VALUES], err => {
+  db.query(q, [values], err => {
     if (err) return res.json(err)
   })
 
@@ -29,9 +29,9 @@ export const updateUser = (req, res) => {
   const q =
     'UPDATE users SET `name` = ?, `email` = ?, `phone` = ?, `bdate` = ? WHERE `id` = ?'
 
-  const VALUES = [req.body.name, req.body.email, req.body.phone, req.body.bdate]
+  const values = [req.body.name, req.body.email, req.body.phone, req.body.bdate]
 
-  db.query(q, [...VALUES, req.params.id], err => {
+  db.query(q, [...values, req.params.id], err => {
     if (err) return res.json(err)
   })
 

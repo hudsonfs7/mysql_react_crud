@@ -1,5 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const FormContainer = styled.form`
   display: flex;
@@ -37,14 +39,63 @@ const Button = styled.button`
 
 const Label = styled.label``
 
-const Form = ({ onEdit }) => {
+const Form = ({ getUsers, onEdit, setOnEdit }) => {
   const ref = useRef()
 
+  useEffect(() => {
+    if (onEdit) {
+      const user = ref.current
+
+      user.name.value = onEdit.name
+      user.email.value = onEdit.email
+      user.phone.value = onEdit.phone
+      user.bdate.value = onEdit.bdate
+    }
+  }, [onEdit])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const user = ref.current
+    if (
+      !user.name.value || 
+      !user.email.value || 
+      !user.phone.value || 
+      !user.bdate.value      
+    ) {
+      return toast.warn("Preencha todos os campos!");
+    }
+
+    if (onEdit) {
+      await axios.put('http://localhost:8800/' + onEdit.id, {
+        name: user.name.value,  
+        email: user.email.value,  
+        phone: user.phone.value,  
+        date: user.bdate.value,      
+      }).then(({ data }) => toast.success(data)).catch(({ data }) => toast.error(data))
+    } else {
+      await axios.post('http://localhost:8800/', {
+        name: user.name.value,  
+        email: user.email.value,  
+        phone: user.phone.value,  
+        date: user.bdate.value, 
+      }).then(({ data }) => toast.success(data)).catch(({ data }) => toast.error(data))
+    }
+
+    user.name.value = ""  
+    user.email.value = ""  
+    user.phone.value = ""  
+    user.bdate.value = ""
+
+    setOnEdit(null)
+    getUsers()
+  }
+
   return (
-    <FormContainer ref={ref}>
+    <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
         <Label>Nome</Label>
-        <Input name="nome" />
+        <Input name="name" />
       </InputArea>
       <InputArea>
         <Label>Email</Label>
@@ -56,7 +107,7 @@ const Form = ({ onEdit }) => {
       </InputArea>
       <InputArea>
         <Label>Data de Nascimento</Label>
-        <Input name="data" type="date" />
+        <Input name="bdate" type="date" />
       </InputArea>
 
       <Button type="submit">SALVAR</Button>
