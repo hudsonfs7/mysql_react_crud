@@ -2,7 +2,7 @@ import { db } from '../db.js'
 
 // GET
 export const getUsers = (_, res) => {
-  const q = 'SELECT * FROM users'
+  const q = 'SELECT `name`, `email`, `phone`, `bdate` FROM users'
 
   db.query(q, (err, data) => {
     if (err) return res.json(err)
