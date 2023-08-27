@@ -48,7 +48,7 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
               <FaEdit onClick={() => handleEdit(item)} />
             </Td>
             <Td alignCenter width="5%">
-              <FaTrash  onClick={() => handleDelete(item.delete)}/>
+              <FaTrash  onClick={() => handleDelete(item.id)}/>
             </Td>
           </Tr>
         ))}

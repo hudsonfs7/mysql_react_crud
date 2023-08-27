@@ -59,12 +59,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     setOnEdit(null)
     getUsers()
   }
-
-
-
-
-
-
+  
   return (
     <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
